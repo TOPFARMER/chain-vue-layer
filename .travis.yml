@@ -1,0 +1,48 @@
+language: node_js
+node_js: 'node'
+env:
+  - BUCKET_NAME=parcel
+#缓存
+cache:
+  npm: true
+  directories:
+  - node_modules
+  - qshell
+#指定分支
+branches:
+  only:
+  - master
+#安装环境
+install:
+  - npm install
+#执行构建
+before_script:
+  - npm run build
+#下载qshell
+script:
+  - |
+    if [ ! -e "./qshell/qshell" ]; then
+    rm -rf qshell && mkdir qshell && cd qshell
+    wget http://devtools.qiniu.com/qshell-v2.3.4.zip
+    unzip qshell-v2.3.4.zip
+    mv qshell_linux_x64 qshell
+    else
+    cd qshell
+    fi
+#推送发布
+after_script:
+  #推送至构建发布分支，以GithubPage展示
+  #- cd ./dist
+  #- git init
+  #- git config user.name "${USER_NAME}"
+  #- git config user.email "${USER_EMAIL}"
+  #- git add .
+  #- git commit -m "build with ci"
+  #- git push --force --quiet "https://${test_token}@${GH_REF}" master:${P_BRANCH}
+  #推送至七牛云
+  # - cd ./ci
+  - rm -f pagelist.txt
+  - ./qshell account $AK $SK 457299596@qq.com
+  - ./qshell listbucket2 $BUCKET_NAME -o pagelist.txt
+  - ./qshell batchdelete --force $BUCKET_NAME -i pagelist.txt
+  - ./qshell qupload2 --src-dir=$TRAVIS_BUILD_DIR/dist --bucket=$BUCKET_NAME --rescan-local=true --overwrite=true
