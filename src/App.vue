@@ -23,7 +23,7 @@ export default {
 
 body {
   background-color: #eeeeee;
-  font-family: "Noto Serif SC", "Roboto", Helvetica， "Microsoft YaHei"， serif;
+  font-family: "Noto Serif SC", "Roboto", "Microsoft YaHei", Helvetica, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: grid;
