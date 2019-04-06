@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-const Actor = require("./utils/actor");
-const ProcessFile = require("./utils/process-file.js");
+
 const feathers = require("@feathersjs/client");
 const io = require("socket.io-client");
 

@@ -15,8 +15,7 @@
     "vue-router": "^3.0.2",
     "elliptic": "^6.4.1",
     "crypto-js": "^3.1.9-1",
-    "@feathersjs/client": "^3.7.8",
-    "socket.io-client": "^2.2.0"
+    "feathers-vuex": "^1.7.0"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^2.3.0",
