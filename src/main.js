@@ -9,11 +9,11 @@ import router from './router'
 // const socket = io('http://192.168.178.157:3030');
 
 
-client.configure(feathers.socketio(socket));
-// Use localStorage to store our login token
-client.configure(feathers.authentication({
-  storage: window.localStorage
-}));
+// client.configure(feathers.socketio(socket));
+// // Use localStorage to store our login token
+// client.configure(feathers.authentication({
+//   storage: window.localStorage
+// }));
 
 Vue.config.productionTip = false
 
