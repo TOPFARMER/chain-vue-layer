@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h3>项目实战平台-证书中心 <br>
-      学习生活的好伙伴，快来加入</h3>
+    <h3>学生评价模块演示DEMO</h3>
   </div>
 </template>
 

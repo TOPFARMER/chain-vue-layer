@@ -16,28 +16,34 @@ export default new Router({
         {
           path: "",
           name: "home",
-          component: () =>
-            import(/* webpackChunkName: "about" */ "./pages/HelloWorld.vue")
+          component: () => import("./pages/HelloWorld.vue")
         },
         {
           path: "login",
           name: "login",
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () =>
-            import(/* webpackChunkName: "about" */ "./pages/Login.vue")
+          component: () => import("./pages/Login.vue")
         },
         {
           path: "join",
           name: "join",
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () =>
-            import(/* webpackChunkName: "about" */ "./pages/Join.vue")
+          component: () => import("./pages/Join.vue")
         }
-      ]
+      ],
+      // path: "user",
+      // name: "user",
+      // component: () => import("./layouts/User.vue"),
+      // children: [
+      //   {
+      //     path: "assess",
+      //     name: "assess",
+      //     component: () => import("./pages/Assess.vue")
+      //   },
+      //   {
+      //     path: "review",
+      //     name: "review",
+      //     component: () => import("./pages/Review.vue")
+      //   }
+      // ]
     }
   ]
 });

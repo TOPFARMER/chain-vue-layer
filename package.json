@@ -10,16 +10,22 @@
     "build": "parcel build index.html --public-url / --no-source-maps"
   },
   "dependencies": {
+    "@feathersjs/authentication-client": "^1.0.11",
+    "@feathersjs/feathers": "^3.3.1",
+    "@feathersjs/socketio-client": "^1.2.1",
     "axios": "^0.18.0",
     "crypto-js": "^3.1.9-1",
     "elliptic": "^6.4.1",
     "feathers-vuex": "^1.7.0",
+    "socket.io-client": "^2.2.0",
+    "vee-validate": "^2.2.0",
     "vue-hot-reload-api": "^2.3.1",
     "vue-router": "^3.0.2",
     "vuex": "^3.1.0"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^2.3.0",
+    "electron": "^4.1.4",
     "iview": "^3.1.5",
     "parcel-bundler": "^1.10.3",
     "vue": "^2.5.20",

@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
+  <div class="User">
     <div id="nav">
-      <router-link class="button" :disabled="$route.path === '/join'" to="/join">注册</router-link>
-      <router-link class="button" :disabled="$route.path === '/login'" to="/login">登陆</router-link>
+      <router-link class="button" :disabled="$route.path === '/assess'" to="/assess">评价</router-link>
+      <router-link class="button" :disabled="$route.path === '/review'" to="/review">审查</router-link>
     </div>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
@@ -13,7 +13,7 @@
 <script>
 // @ is an alias to /src
 export default {
-  name: "home",
+  name: "User",
   data() {
     return {};
   },

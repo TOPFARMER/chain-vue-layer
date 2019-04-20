@@ -4,17 +4,29 @@
       <!-- 多元素过渡 1.必须全部包含在transition内部 2.必须全部bind key -->
       <!-- 第一页 -->
       <transition name="fade" mode="out-in">
-        <div class="sexAndRole" v-if="sign_up_step === 1" :key="sign_up_step">
+        <form class="sexAndRole" v-if="sign_up_step === 1" :key="sign_up_step">
           <h5>
             <strong>您的身份是？</strong>
           </h5>
           <div class="role">
             <label for="teacher" class="label-inline">
-              <input id="teacher" type="radio" name="role" value="teacher" v-model="user.role">
+              <input
+                id="teacher"
+                type="radio"
+                name="role"
+                value="teacher"
+                v-model="user.role"
+              >
               教师
             </label>
             <label for="student" class="label-inline">
-              <input id="student" type="radio" name="role" value="student" v-model="user.role">
+              <input
+                id="student"
+                type="radio"
+                name="role"
+                value="student"
+                v-model="user.role"
+              >
               学生
             </label>
           </div>
@@ -31,7 +43,7 @@
               女
             </label>
           </div>
-        </div>
+        </form>
 
         <!-- 第二页 -->
         <form class="personalInfo" v-else-if="sign_up_step === 2" :key="sign_up_step">
@@ -44,7 +56,7 @@
             <input type="text" v-model.lazy="user.institution" placeholder="院校">
             <input type="text" v-model.lazy="user.faculty" placeholder="学院">
             <input type="number" v-model.lazy="user.grade" placeholder="年级">
-            <input type="number" v-model.lazy="user.c1ass" placeholder="班级">
+            <input type="number" v-model.lazy="user.class" placeholder="班级">
             <!-- <textarea v-model.lazy="user.intro" placeholder="个人简介"></textarea> -->
           </fieldset>
           <fieldset v-else-if="user.role === 'teacher'">
@@ -131,13 +143,14 @@
       >下一步</a>
       <a
         type="button"
-        @click="backwardStep()"
+        @click="sendThisToMe(actor.genSecret(),
+              `key-${actor.account.substring(0, 8)}.json`);"
         v-show="sign_up_step === 5 && (isVaildPublicKey !== true)"
         class="button button-clear"
       >重新生成</a>
       <a
         type="button"
-        @click="register()"
+        @click="sendToFeathers()"
         v-show="sign_up_step === 5 && (isVaildPublicKey === true)"
         class="button button-outline"
       >大功告成</a>
@@ -153,27 +166,31 @@ export default {
   name: "signInForm",
   data() {
     return {
-      rePassword: undefined,
-      rePublicKey: undefined,
+      rePassword: null,
+      rePublicKey: null,
       sign_up_step: 1,
-      actor: undefined,
-      isVaildPublicKey: undefined,
+      actor: null,
+      isVaildPublicKey: null,
       user: {
-        email: undefined,
-        password: undefined,
-        role: undefined,
-        publicKey: undefined,
-        name: undefined,
-        sex: undefined,
-        tel: undefined,
-        institution: undefined,
-        faculty: undefined,
-        grade: undefined,
+        email: null,
+        password: null,
+        role: null,
+        publicKey: null,
+        name: null,
+        sex: null,
+        tel: null,
+        institution: null,
+        faculty: null,
+        grade: null,
+        class: null,
         // class为关键字，使用c1ass代替
-        c1ass: undefined,
+        // 提交数据时加入
         intro: "暂无"
       }
     };
+  },
+  computed: {
+    // TODO 用于检测数据是否输入完成以及服务器是否有重名
   },
   methods: {
     forwardStep: function() {
@@ -199,6 +216,8 @@ export default {
         this.actor.genSecret(),
         `key-${this.actor.account.substring(0, 8)}.json`
       );
+
+      // TODO 查询服务器是否有重名公钥
     },
     handleDragOver: function(event) {
       ProcessFile.handleDragOver(event);
@@ -210,7 +229,6 @@ export default {
         this.checkPublicKey();
       });
     },
-
     checkPwd: function() {},
     checkPublicKey: function() {
       if (this.rePublicKey === this.user.publicKey) {
@@ -219,8 +237,14 @@ export default {
         this.isVaildPublicKey = false;
       }
     },
-    sendToFeathers() {
-      
+    sendToFeathers: function() {
+      if (this.user.role === "teacher") {
+        this.user.class = 0;
+        this.user.grade = 0;
+      }
+      const { User } = this.$FeathersVuex;
+      const newUser = new User(this.user);
+      newUser.save();
     }
   }
 };
