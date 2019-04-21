@@ -4,7 +4,7 @@
       <!-- 多元素过渡 1.必须全部包含在transition内部 2.必须全部bind key -->
       <!-- 第一页 -->
       <transition name="fade" mode="out-in">
-        <form class="sexAndRole" v-if="sign_up_step === 1" :key="sign_up_step">
+        <form class="sexAndRole" v-if="signUpStep === 1" :key="signUpStep">
           <h5>
             <strong>您的身份是？</strong>
           </h5>
@@ -46,7 +46,7 @@
         </form>
 
         <!-- 第二页 -->
-        <form class="personalInfo" v-else-if="sign_up_step === 2" :key="sign_up_step">
+        <form class="personalInfo" v-else-if="signUpStep === 2" :key="signUpStep">
           <h5>
             <strong>填写您的个人信息：</strong>
           </h5>
@@ -68,7 +68,7 @@
         </form>
 
         <!-- 第三页 -->
-        <form class="keyInfo" v-else-if="sign_up_step === 3" :key="sign_up_step">
+        <form class="keyInfo" v-else-if="signUpStep === 3" :key="signUpStep">
           <h5>
             <strong>填写您的注册邮箱以及密码：</strong>
           </h5>
@@ -79,7 +79,7 @@
           </fieldset>
         </form>
 
-        <div class="genKeyPair" v-else-if="sign_up_step === 4" :key="sign_up_step">
+        <div class="genKeyPair" v-else-if="signUpStep === 4" :key="signUpStep">
           <h5>
             <strong>已极速为您生成密钥对！</strong>
           </h5>
@@ -132,26 +132,26 @@
       <a
         type="button"
         @click="backwardStep()"
-        v-show="sign_up_step === 2 || sign_up_step === 3"
+        v-show="signUpStep === 2 || signUpStep === 3"
         class="button button-clear"
       >上一步</a>
       <a
         type="button"
         @click="forwardStep()"
-        v-show="sign_up_step !== 5"
+        v-show="signUpStep !== 5"
         class="button button-clear"
       >下一步</a>
       <a
         type="button"
         @click="sendThisToMe(actor.genSecret(),
               `key-${actor.account.substring(0, 8)}.json`);"
-        v-show="sign_up_step === 5 && (isVaildPublicKey !== true)"
+        v-show="signUpStep === 5 && (isVaildPublicKey !== true)"
         class="button button-clear"
       >重新生成</a>
       <a
         type="button"
         @click="sendToFeathers()"
-        v-show="sign_up_step === 5 && (isVaildPublicKey === true)"
+        v-show="signUpStep === 5 && (isVaildPublicKey === true)"
         class="button button-outline"
       >大功告成</a>
     </div>
@@ -159,7 +159,7 @@
 </template>
 
 <script>
-const Actor = require("../utils/actor");
+const Actor = require("../utils/actor.js");
 const ProcessFile = require("../utils/process-file.js");
 
 export default {
@@ -168,7 +168,7 @@ export default {
     return {
       rePassword: null,
       rePublicKey: null,
-      sign_up_step: 1,
+      signUpStep: 1,
       actor: null,
       isVaildPublicKey: null,
       user: {
@@ -183,8 +183,6 @@ export default {
         faculty: null,
         grade: null,
         class: null,
-        // class为关键字，使用c1ass代替
-        // 提交数据时加入
         intro: "暂无"
       }
     };
@@ -194,16 +192,16 @@ export default {
   },
   methods: {
     forwardStep: function() {
-      if (this.sign_up_step < 5) {
-        this.sign_up_step++;
-        if (this.sign_up_step === 4) {
+      if (this.signUpStep < 5) {
+        this.signUpStep++;
+        if (this.signUpStep === 4) {
           this.genKeyPair();
         }
       }
     },
     backwardStep: function() {
-      if (this.sign_up_step > 1) {
-        return this.sign_up_step--;
+      if (this.signUpStep > 1) {
+        return this.signUpStep--;
       }
     },
     sendThisToMe: function(file, name) {

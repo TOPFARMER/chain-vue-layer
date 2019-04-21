@@ -16,34 +16,38 @@ export default new Router({
         {
           path: "",
           name: "home",
-          component: () => import("./pages/HelloWorld.vue")
+          component: () => import("./pages/HelloWorld.vue"),
+          children: [
+            {
+              path: "login",
+              name: "login",
+              component: () => import("./pages/Login.vue")
+            },
+            {
+              path: "join",
+              name: "join",
+              component: () => import("./pages/Join.vue")
+            }
+          ]
         },
         {
-          path: "login",
-          name: "login",
-          component: () => import("./pages/Login.vue")
-        },
-        {
-          path: "join",
-          name: "join",
-          component: () => import("./pages/Join.vue")
+          path: "user",
+          name: "user",
+          component: () => import("./layouts/User.vue"),
+          children: [
+            {
+              path: "assess",
+              name: "assess",
+              component: () => import("./pages/Assess.vue")
+            },
+            {
+              path: "review",
+              name: "review",
+              component: () => import("./pages/Review.vue")
+            }
+          ]
         }
-      ],
-      // path: "user",
-      // name: "user",
-      // component: () => import("./layouts/User.vue"),
-      // children: [
-      //   {
-      //     path: "assess",
-      //     name: "assess",
-      //     component: () => import("./pages/Assess.vue")
-      //   },
-      //   {
-      //     path: "review",
-      //     name: "review",
-      //     component: () => import("./pages/Review.vue")
-      //   }
-      // ]
+      ]
     }
   ]
 });

@@ -1,5 +1,4 @@
-const ChainUtil = require('..');
-const Comment = require('./comment');
+const ChainUtil = require('.');
 
 /**
  * 

@@ -1,17 +1,11 @@
 <template>
   <div class="home">
-    <div id="nav">
-      <router-link class="button" :disabled="$route.path === '/join'" to="/join">注册</router-link>
-      <router-link class="button" :disabled="$route.path === '/login'" to="/login">登陆</router-link>
-    </div>
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <h4>学生评价模块演示DEMO</h4>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 export default {
   name: "home",
   data() {

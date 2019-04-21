@@ -12,11 +12,14 @@ Vue.use(FeathersVuex);
 
 export default new Vuex.Store({
   plugins: [
-    service("comments", {
-        idField: "_id"
+    service("blocks", {
+      idField: "_id"
+    }),
+    service("assessments", {
+      idField: "_id"
     }),
     service("users", {
-        idField: "_id"
+      idField: "_id"
     }),
     auth({ userService: "users" })
   ]
@@ -24,7 +27,6 @@ export default new Vuex.Store({
 
 // this.$store.auth.logout();
 // this.$store.auth.authenticate();
-
 
 /** 
  * 

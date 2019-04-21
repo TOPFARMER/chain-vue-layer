@@ -1,9 +1,10 @@
 <template>
   <div class="User">
     <div id="nav">
-      <router-link class="button" :disabled="$route.path === '/assess'" to="/assess">评价</router-link>
-      <router-link class="button" :disabled="$route.path === '/review'" to="/review">审查</router-link>
+      <router-link class="button" :disabled="$route.path === '/user/assess'" to="/user/assess">评价</router-link>
+      <router-link class="button" :disabled="$route.path === '/user/review'" to="/user/review">审查</router-link>
     </div>
+    <h5 v-if="$route.path === '/user'">欢迎用户：{{user.name}}</h5>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -11,11 +12,12 @@
 </template>
 
 <script>
-// @ is an alias to /src
 export default {
   name: "User",
   data() {
-    return {};
+    return {
+      user: this.$store.state.auth.user
+    };
   },
   methods: {}
 };
